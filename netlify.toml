@@ -6,9 +6,14 @@
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
 
+# El adaptador oficial de Netlify para Next.js (se instala solo, pero lo
+# declaramos para fijar el comportamiento).
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# La página principal original vive en /public/inicio.html. En Netlify los
+# archivos estáticos los sirve la CDN (no Next.js), así que la portada se
+# reescribe aquí; la regla de next.config.ts queda para desarrollo local.
 [[redirects]]
   from = "/"
   to = "/inicio.html"
@@ -24,5 +29,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
 
+# Función programada que procesa confirmaciones y recordatorios cada 10 minutos.
 [functions."notificaciones"]
   schedule = "*/10 * * * *"
